@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StudyForge — revision that actually sticks</title>
+<meta name="description" content="Turn your own class notes into exam-board flashcards, quizzes and examiner-style marking. Built for UK GCSE and A-Level.">
+<meta name="theme-color" content="#f5ead8">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="StudyForge">
+<meta name="mobile-web-app-capable" content="yes">
+<meta property="og:title" content="StudyForge — revision that actually sticks">
+<meta property="og:description" content="Your own notes become exam-board flashcards, quizzes and marking. GCSE and A-Level.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c67139'/%3E%3Cpath d='M16 6l2.4 6.2L24.6 15l-6.2 2.4L16 24l-2.4-6.6L7.4 15l6.2-2.8z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ORGANIC — tokens ported verbatim from the Claude Design export
+   (_ds/organic-204887e3.../styles.css)
+   ============================================================ */
+:root{
+  --bg:#f5ead8; --surface:#ebddc5; --text:#201e1d;
+  --accent:#c67139; --accent-2:#7a8a5e;
+  --n100:#f9f4ed; --n200:#eee7db; --n300:#dcd3c4; --n400:#c0b6a5;
+  --n500:#a19786; --n600:#82796a; --n700:#645c50; --n800:#474238; --n900:#2e2b25;
+  --a100:#fff2eb; --a200:#ffe1d0; --a300:#ffc6a5; --a400:#f6a06b;
+  --a500:#d67f48; --a600:#b2622d; --a700:#8c491a; --a800:#643312; --a900:#402310;
+  --g100:#f0fae1; --g200:#e1eecc; --g300:#ccdbb2; --g400:#aebf92;
+  --g500:#8fa073; --g600:#728157; --g700:#56633f; --g800:#3d472b; --g900:#272e1b;
+  --divider:color-mix(in srgb,#201e1d 16%,transparent);
+  --head:'Caprasimo',Georgia,serif;
+  --body:'Figtree',system-ui,-apple-system,sans-serif;
+  --r-sm:8px; --r-md:16px; --r-lg:28px;
+  --sh-sm:0 1px 2px rgba(46,43,37,.14);
+  --sh-md:0 3px 10px rgba(46,43,37,.16);
+  --sh-lg:0 12px 32px rgba(46,43,37,.22);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{background:#e6d9c0;color:var(--text);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:var(--head);font-weight:400;margin:0;line-height:1.1;}
+p{margin:0 0 .8rem;}
+button{font-family:inherit;font-size:inherit;cursor:pointer;border:0;background:none;color:inherit;}
+input,textarea,select{font-family:inherit;font-size:inherit;color:var(--text);}
+a{color:var(--a700);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+::selection{background:var(--a200);}
+
+/* accessible reading mode (carried over from the dyslexia toggle) */
+body.easy{letter-spacing:.03em;word-spacing:.12em;}
+body.easy .scr{line-height:1.85;}
+body.easy .q-big,body.easy .card-a,body.easy .prose{font-size:1.06rem;}
+
+/* ============================================================
+   PHONE SHELL — 402x874 design frame, fluid on real phones
+   ============================================================ */
+.stage{min-height:100dvh;display:grid;place-items:center;padding:0;}
+@media(min-width:900px){.stage{padding:36px 24px;}}
+.phone{
+  width:100%;max-width:402px;background:var(--bg);position:relative;
+  display:flex;flex-direction:column;min-height:100dvh;overflow:hidden;
+}
+@media(min-width:900px){
+  .phone{min-height:874px;height:874px;border-radius:44px;box-shadow:var(--sh-lg),0 0 0 10px #2e2b25,0 0 0 12px #46403a;}
+}
+.scr{flex:1;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px;scrollbar-width:none;}
+.scr::-webkit-scrollbar{display:none;}
+.screen{display:none;animation:rise .28s ease;}
+.screen.on{display:block;}
+@keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.screen{animation:none;}}
+
+/* header */
+.hdr{padding:18px 18px 10px;display:flex;align-items:flex-start;gap:12px;}
+.kick{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--a700);font-weight:700;}
+.hdr h2{font-size:27px;margin-top:6px;}
+.hdr .sub{font-size:14px;color:var(--n800);margin-top:6px;line-height:1.55;}
+.ava{width:44px;height:44px;border-radius:999px;flex:none;display:grid;place-items:center;
+  background:var(--accent);color:#fff;font-weight:800;font-size:14px;letter-spacing:.02em;box-shadow:var(--sh-sm);}
+.ava.sage{background:var(--accent-2);}
+
+/* surfaces */
+.blk{background:var(--n100);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:16px 17px;margin:12px 18px;}
+.blk.lg{border-radius:var(--r-lg);padding:20px;}
+.blk.accent{background:var(--a200);}
+.blk.sage{background:var(--g200);}
+.blk.plain{background:transparent;box-shadow:none;padding:0 18px;margin:16px 0;}
+.blk h3{font-size:22px;line-height:1.3;}
+.blk .lab{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--n700);font-weight:700;margin-bottom:9px;}
+.blk .lab.a{color:var(--a700);}
+.blk .lab.s{color:var(--g700);}
+.prose{font-size:14.5px;line-height:1.62;color:var(--n800);}
+.prose b{font-weight:700;color:var(--text);}
+
+/* buttons */
+.btn{border-radius:999px;padding:14px 22px;font-weight:700;font-size:15px;display:inline-flex;
+  align-items:center;justify-content:center;gap:9px;min-height:48px;transition:background .16s,transform .12s;}
+.btn:active{transform:scale(.98);}
+.btn-p{background:var(--accent);color:#fff;box-shadow:var(--sh-sm);}
+.btn-p:hover{background:var(--a600);}
+.btn-s{background:var(--n100);color:var(--text);box-shadow:var(--sh-sm);}
+.btn-s:hover{background:var(--n200);}
+.btn-sage{background:var(--accent-2);color:#fff;}
+.btn-sage:hover{background:var(--g600);}
+.btn-g{background:transparent;color:var(--a700);border:1.5px solid var(--n300);}
+.btn-g:hover{background:var(--a100);border-color:var(--a300);}
+.btn-b{width:100%;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.btn.busy{pointer-events:none;}
+.btn.busy .lbl::after{content:"";animation:dots 1.2s infinite steps(4);}
+@keyframes dots{0%{content:"";}25%{content:".";}50%{content:"..";}75%{content:"...";}}
+.row2{display:flex;gap:10px;margin:12px 18px;}
+.row2 .btn{flex:1;}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.04em;
+  padding:5px 11px;border-radius:999px;text-transform:uppercase;}
+.tag-a{background:var(--a200);color:var(--a700);}
+.tag-s{background:var(--g200);color:var(--g700);}
+.tag-n{background:var(--n200);color:var(--n700);}
+
+/* tab bar */
+.tabbar{flex:none;background:var(--n100);box-shadow:0 -3px 10px rgba(46,43,37,.10);
+  padding:8px 8px calc(18px + env(safe-area-inset-bottom));}
+.tabbar .in{display:flex;align-items:stretch;}
+.tab{flex:1;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:5px;padding:6px 2px;border-radius:18px;color:var(--n500);}
+.tab.on{color:var(--accent);}
+.tab span{font-size:11px;font-weight:500;letter-spacing:.01em;}
+.tab.on span{font-weight:700;}
+
+/* role switch */
+.roles{display:flex;gap:6px;background:var(--n100);border-radius:999px;padding:5px;box-shadow:var(--sh-sm);margin:14px 18px 0;}
+.roles button{flex:1;font-size:13px;font-weight:700;padding:9px 6px;border-radius:999px;color:var(--n700);}
+.roles button.on{background:var(--accent);color:#fff;}
+
+/* stats */
+.stats{display:flex;gap:10px;margin:12px 18px;}
+.stat{flex:1;background:var(--n100);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:14px 12px;text-align:center;}
+.stat .n{font-family:var(--head);font-size:26px;line-height:1;}
+.stat .n.a{color:var(--a700);}
+.stat .n.s{color:var(--g700);}
+.stat .l{font-size:11px;color:var(--n700);margin-top:6px;font-weight:600;}
+
+/* due card */
+.due{display:flex;gap:14px;align-items:center;}
+.due .ring{width:58px;height:58px;flex:none;position:relative;display:grid;place-items:center;}
+.due .ring svg{position:absolute;inset:0;transform:rotate(-90deg);}
+.due .ring b{font-family:var(--head);font-size:20px;}
+.due .t{font-family:var(--head);font-size:19px;}
+.due .m{font-size:13.5px;color:var(--n800);margin-top:3px;}
+.due .s{font-size:12.5px;color:var(--n700);margin-top:2px;}
+
+/* topic bars */
+.topic{margin-bottom:13px;}
+.topic .hd{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;}
+.topic .hd b{font-weight:700;}
+.topic .hd span{color:var(--n700);font-size:13px;}
+.topic .bar{height:8px;border-radius:4px;background:var(--n300);overflow:hidden;}
+.topic .bar i{display:block;height:100%;border-radius:4px;}
+
+/* flashcard grid */
+.fc{background:var(--n100);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:15px 16px;margin:10px 18px;}
+.fc .meta{display:flex;gap:8px;align-items:center;margin-bottom:9px;}
+.fc .q{font-family:var(--head);font-size:17px;line-height:1.3;}
+.fc .card-a{font-size:14px;color:var(--n800);line-height:1.6;margin-top:7px;}
+.fc .flg{margin-top:11px;padding-top:10px;border-top:1px solid var(--n300);font-size:13px;font-weight:600;color:var(--n700);}
+.fc.flagged{background:var(--a100);}
+.fc.flagged .q,.fc.flagged .card-a{opacity:.5;}
+.fc.flagged .flg{color:var(--a700);}
+
+/* study */
+.flip{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-md);margin:12px 18px;
+  min-height:240px;display:grid;place-items:center;padding:28px 24px;text-align:center;cursor:pointer;}
+.q-big{font-family:var(--head);font-size:21px;line-height:1.28;}
+.a-big{font-size:15.5px;line-height:1.62;color:var(--n800);}
+.hint{font-size:12px;color:var(--n700);margin-top:14px;font-weight:600;}
+.rates{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 18px;}
+.rate{border-radius:var(--r-md);padding:13px 10px;text-align:center;box-shadow:var(--sh-sm);}
+.rate b{display:block;font-size:14.5px;font-weight:700;}
+.rate span{display:block;font-size:11.5px;margin-top:2px;opacity:.85;}
+.prog{height:6px;border-radius:3px;background:var(--n300);margin:0 18px;overflow:hidden;}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .3s;}
+
+/* quiz */
+.opt{display:flex;gap:11px;align-items:flex-start;text-align:left;width:100%;
+  background:var(--n100);border-radius:var(--r-md);padding:14px 15px;margin-bottom:9px;box-shadow:var(--sh-sm);font-size:14.5px;line-height:1.45;}
+.opt .k{font-weight:700;flex:none;}
+.opt.right{background:var(--g500);color:#fff;font-weight:700;}
+.opt.wrong{background:var(--a200);color:var(--a800);font-weight:700;}
+.opt.dim{background:#f2ece1;color:var(--n600);}
+
+/* forms */
+.field{margin:12px 18px;}
+.field label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--n700);font-weight:700;margin-bottom:7px;}
+.input,select,textarea.ta{width:100%;background:var(--n100);border:1.5px solid var(--n300);border-radius:var(--r-md);
+  padding:13px 15px;font-size:15px;box-shadow:var(--sh-sm);}
+select{border-radius:999px;}
+textarea.ta{min-height:130px;resize:vertical;line-height:1.6;border-radius:var(--r-md);}
+.input:focus,select:focus,textarea.ta:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);}
+.input::placeholder,textarea.ta::placeholder{color:var(--n500);}
+.capture{display:flex;gap:14px;align-items:center;width:100%;background:var(--surface);border-radius:var(--r-lg);
+  padding:20px;box-shadow:var(--sh-sm);text-align:left;}
+.capture .ic{width:52px;height:52px;border-radius:999px;flex:none;display:grid;place-items:center;background:var(--accent);color:#fff;}
+.capture b{display:block;font-family:var(--head);font-size:18px;}
+.capture span{display:block;font-size:13.5px;color:var(--n800);margin-top:3px;}
+
+/* toggles */
+.tog{display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 0;width:100%;text-align:left;}
+.tog .tl{flex:1;}
+.tog .tl b{display:block;font-size:14.5px;font-weight:700;}
+.tog .tl span{display:block;font-size:12.5px;color:var(--n700);margin-top:2px;line-height:1.45;}
+.sw{width:50px;height:30px;border-radius:999px;background:var(--n300);flex:none;position:relative;transition:background .18s;}
+.sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:var(--sh-sm);transition:transform .18s;}
+.sw.on{background:var(--accent-2);}
+.sw.on i{transform:translateX(20px);}
+.lst{border-top:1px solid var(--n300);}
+.lst .tog{border-bottom:1px solid var(--n300);}
+.lst .tog:last-child{border-bottom:0;}
+
+/* pupils / review */
+.pupil{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--n300);}
+.pupil:last-child{border-bottom:0;}
+.pupil .ini{width:38px;height:38px;border-radius:999px;flex:none;display:grid;place-items:center;
+  background:var(--n200);font-weight:800;font-size:12.5px;color:var(--n800);}
+.pupil .nm{font-size:14.5px;font-weight:700;}
+.pupil .nt{font-size:12.5px;color:var(--n700);margin-top:2px;line-height:1.4;}
+
+/* week dots */
+.week{display:flex;gap:7px;margin-top:12px;}
+.week div{flex:1;text-align:center;}
+.week .bar{height:44px;border-radius:8px;background:var(--n300);display:flex;align-items:flex-end;overflow:hidden;}
+.week .bar i{display:block;width:100%;background:var(--accent-2);border-radius:8px;}
+.week .d{font-size:11px;color:var(--n700);margin-top:5px;font-weight:600;}
+
+/* sample-data notice — this app has no backend for class data */
+.sample{display:flex;gap:9px;align-items:flex-start;margin:12px 18px;background:var(--a100);
+  border-radius:var(--r-md);padding:11px 14px;font-size:12.5px;line-height:1.5;color:var(--a800);}
+.sample b{font-weight:800;}
+
+/* landing */
+.land{padding:26px 22px calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column;min-height:100dvh;}
+.land .brandrow{display:flex;align-items:center;gap:11px;}
+.mark{width:44px;height:44px;border-radius:999px;flex:none;display:grid;place-items:center;background:var(--accent);box-shadow:var(--sh-sm);}
+.land h1{font-size:40px;line-height:1.02;margin-top:26px;}
+.land h1 em{font-style:normal;color:var(--a700);}
+.land .lede{font-size:15.5px;line-height:1.6;color:var(--n800);margin-top:14px;}
+.land .pts{margin-top:18px;display:flex;flex-direction:column;gap:8px;}
+.land .pt{background:var(--n100);border-radius:var(--r-md);padding:12px 15px;box-shadow:var(--sh-sm);font-size:14px;line-height:1.5;}
+.land .pt b{font-weight:800;}
+.atabs{display:flex;gap:5px;background:var(--n200);border-radius:999px;padding:4px;margin:22px 0 16px;}
+.atabs button{flex:1;padding:10px;border-radius:999px;font-weight:700;font-size:14px;color:var(--n700);}
+.atabs button.on{background:var(--n100);color:var(--text);box-shadow:var(--sh-sm);}
+.aerr{background:var(--a200);color:var(--a800);border-radius:var(--r-md);padding:11px 14px;font-size:13.5px;margin-bottom:12px;display:none;font-weight:600;}
+.aerr.on{display:block;}
+.remember{display:flex;align-items:center;gap:10px;font-size:14px;margin:4px 18px 14px;cursor:pointer;}
+.remember input{width:20px;height:20px;accent-color:var(--accent);}
+.anote{font-size:13px;color:var(--n800);line-height:1.55;margin-top:16px;padding-top:14px;border-top:1px solid var(--n300);}
+.anote b{font-weight:800;}
+
+/* footer */
+.foot{padding:20px 18px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--n300);margin-top:20px;}
+.foot .fr{display:flex;align-items:center;gap:10px;}
+.foot .fn{font-family:var(--head);font-size:17px;}
+.foot .fc2{font-size:14px;color:var(--n800);font-weight:600;margin-left:auto;}
+.foot .fl{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+.foot .fl button{font-size:13.5px;font-weight:700;color:var(--a700);background:var(--a100);padding:7px 13px;border-radius:999px;}
+.foot .note{font-size:13px;color:var(--n800);margin-top:12px;line-height:1.55;background:var(--n100);
+  border-radius:var(--r-md);padding:11px 14px;box-shadow:var(--sh-sm);}
+
+/* sheet (modal) */
+.veil{position:fixed;inset:0;z-index:90;background:rgba(46,43,37,.5);display:none;align-items:flex-end;justify-content:center;padding:0;}
+.veil.on{display:flex;}
+@media(min-width:900px){.veil{align-items:center;padding:24px;}}
+.sheet{width:100%;max-width:402px;background:var(--bg);border-radius:var(--r-lg) var(--r-lg) 0 0;
+  padding:24px 20px calc(24px + env(safe-area-inset-bottom));max-height:86dvh;overflow:auto;animation:up .26s cubic-bezier(.2,.8,.3,1);}
+@media(min-width:900px){.sheet{border-radius:var(--r-lg);}}
+@keyframes up{from{transform:translateY(24px);opacity:0;}to{transform:none;opacity:1;}}
+.sheet h3{font-size:24px;margin-bottom:10px;}
+.sheet .sub{font-size:14.5px;color:var(--n800);margin-bottom:18px;line-height:1.55;}
+.sheet .acts{display:flex;flex-direction:column;gap:9px;margin-top:20px;}
+
+/* toast */
+.toast{pointer-events:none;position:fixed;left:50%;bottom:118px;transform:translate(-50%,140%);z-index:80;background:var(--n900);color:#fff;
+  border-radius:999px;padding:12px 22px;font-size:14px;font-weight:600;box-shadow:var(--sh-lg);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1);max-width:88vw;text-align:center;}
+.toast.on{transform:translate(-50%,0);}
+.toast.err{background:var(--a700);}
+.toast.win{background:var(--accent-2);}
+
+/* mascot */
+.mascot{position:fixed;right:16px;bottom:104px;z-index:110;width:54px;height:54px;border-radius:999px;
+  background:var(--accent);box-shadow:var(--sh-md),0 0 0 4px var(--bg);display:grid;place-items:center;}
+.mascot .mi{display:grid;place-items:center;animation:bob 3.8s ease-in-out infinite;pointer-events:none;}
+.mascot:hover .mi{animation-play-state:paused;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+@media(prefers-reduced-motion:reduce){.mascot .mi{animation:none;}}
+.bubble{position:fixed;right:16px;bottom:170px;z-index:111;width:min(300px,calc(100vw - 32px));
+  background:var(--n100);border-radius:var(--r-lg);padding:17px 19px;box-shadow:var(--sh-lg);
+  opacity:0;transform:translateY(10px) scale(.95);pointer-events:none;transition:.24s cubic-bezier(.2,.8,.3,1);transform-origin:bottom right;}
+.bubble.on{opacity:1;transform:none;pointer-events:auto;}
+.bubble .ws{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--a700);font-weight:700;margin-bottom:8px;}
+.bubble q{display:block;font-family:var(--head);font-size:17px;line-height:1.34;quotes:none;}
+.bubble q .hi{background:var(--a200);border-radius:6px;padding:.02em .26em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.bubble .dm{margin-top:11px;font-size:13.5px;font-weight:700;color:var(--a700);}
+@media(min-width:900px){.mascot,.bubble,.toast{position:absolute;}}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="phone" id="phone">
+
+<!-- ================= LANDING ================= -->
+<div class="scr" id="landing">
+  <div class="land">
+    <div class="brandrow">
+      <span class="mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5 10.2 10.8 5.5 9l4.7-1.3z"/></svg></span>
+      <div><div style="font-family:var(--head);font-size:20px">StudyForge</div>
+        <div class="kick" style="margin-top:1px">GCSE &amp; A-Level</div></div>
+    </div>
+
+    <h1>Revision that<br><em>actually sticks.</em></h1>
+    <p class="lede">Photograph a page or paste your notes. Get exam-board flashcards, quizzes and
+    examiner-style marking — then spaced repetition brings back what you keep forgetting.</p>
+
+    <div class="pts">
+      <div class="pt"><b>Your notes, not generic ones.</b> Every card carries a specification tag, so a teacher can vouch for it.</div>
+      <div class="pt"><b>It marks, it never writes.</b> You get a band and the one thing to add — never an answer to copy.</div>
+      <div class="pt"><b>Three modes, one app.</b> Student, teacher and household each see what they need.</div>
+    </div>
+
+    <div class="atabs" id="atabs">
+      <button class="on" data-mode="signup">Sign up</button>
+      <button data-mode="login">Log in</button>
+    </div>
+
+    <div class="aerr" id="aerr"></div>
+
+    <div class="field" style="margin:0 0 12px" id="gName">
+      <label for="fName">Your name</label>
+      <input class="input" id="fName" type="text" autocomplete="name" placeholder="Amara">
+    </div>
+    <div class="field" style="margin:0 0 12px">
+      <label for="fEmail">Email</label>
+      <input class="input" id="fEmail" type="email" autocomplete="email" placeholder="you@example.com">
+    </div>
+    <div class="field" style="margin:0 0 12px">
+      <label for="fPass">Password</label>
+      <input class="input" id="fPass" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+    </div>
+    <label class="remember" style="margin:2px 0 14px"><input type="checkbox" id="fRemember" checked> Keep me signed in on this device</label>
+
+    <button class="btn btn-p btn-b" id="btnAuth">Create account</button>
+    <button class="btn btn-g btn-b" id="btnGuest" style="margin-top:10px">Have a look around first</button>
+
+    <div class="anote">
+      <b>Pre-launch build.</b> There is no server yet, so your account lives only in this browser
+      on this device. Your password is never stored — only a salted hash of it. Treat this as a
+      demo, not real security, and do not reuse a password from anywhere else.
+    </div>
+
+    <div class="foot">
+      <div class="fr"><span class="mark" style="width:30px;height:30px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5 10.2 10.8 5.5 9l4.7-1.3z"/></svg></span>
+        <span class="fn">StudyForge AI</span><span class="fc2">© 2026</span></div>
+      <div class="note"><b>Pre-launch build.</b> Replace “StudyForge AI” with your registered
+      company name, number and address before launch.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div class="scr" id="app" style="display:none">
+
+  <div class="roles" id="roles">
+    <button data-role="student" class="on">Student</button>
+    <button data-role="teacher">Teacher</button>
+    <button data-role="parent">Household</button>
+  </div>
+
+  <!-- ---------- STUDENT · TODAY ---------- -->
+  <section class="screen on" id="sc-today">
+    <div class="hdr">
+      <div style="flex:1"><div class="kick" id="todayKick">Today</div><h2 id="todayHi">Morning</h2></div>
+      <span class="ava" id="todayAva">?</span>
+    </div>
+
+    <div class="blk lg">
+      <div class="due">
+        <div class="ring">
+          <svg viewBox="0 0 58 58" width="58" height="58">
+            <circle cx="29" cy="29" r="25" fill="none" stroke="#dcd3c4" stroke-width="6"/>
+            <circle id="dueArc" cx="29" cy="29" r="25" fill="none" stroke="#c67139" stroke-width="6" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="157"/>
+          </svg>
+          <b id="dueNum">0</b>
+        </div>
+        <div style="flex:1">
+          <div class="t" id="dueTitle">Nothing due yet</div>
+          <div class="m" id="dueMins">Forge a deck to get started</div>
+          <div class="s" id="dueTopics"></div>
+        </div>
+      </div>
+      <button class="btn btn-p btn-b" id="btnStartToday" style="margin-top:16px">Start today's session</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n a" id="tStreak">0</div><div class="l">Day streak</div></div>
+      <div class="stat"><div class="n" id="tDecks">0</div><div class="l">Decks saved</div></div>
+      <div class="stat"><div class="n s" id="tCards">0</div><div class="l">Cards recalled</div></div>
+    </div>
+
+    <div class="blk">
+      <div class="lab a">Set by your teacher</div>
+      <div class="prose" id="assignedList"></div>
+    </div>
+
+    <div class="row2">
+      <button class="btn btn-s" data-go="forge">Make new cards</button>
+      <button class="btn btn-s" data-go="class">Your class</button>
+    </div>
+  </section>
+
+  <!-- ---------- STUDENT · FORGE ---------- -->
+  <section class="screen" id="sc-forge">
+    <div class="hdr"><div style="flex:1"><div class="kick">The forge</div>
+      <h2>Make revision from anything</h2></div></div>
+
+    <div style="margin:12px 18px">
+      <button class="capture" id="btnCapture">
+        <span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-2h6l2 2h3v12H4z"/><circle cx="12" cy="13" r="3.4"/></svg></span>
+        <span style="flex:1"><b>Photograph your notes</b><span>A page, a whiteboard, a textbook spread</span></span>
+      </button>
+      <input type="file" id="fileIn" accept="image/*" capture="environment" class="sr-only">
+    </div>
+
+    <div class="field">
+      <label for="notes">Or paste / type</label>
+      <textarea class="ta" id="notes" placeholder="Paste your class notes — messy is fine. Or just type a topic, like “osmosis” or “the causes of the 1929 crash”."></textarea>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 18px 4px">
+      <button class="btn btn-g" style="min-height:40px;padding:9px 14px;font-size:13px" data-ex="osmosis">Try: osmosis</button>
+      <button class="btn btn-g" style="min-height:40px;padding:9px 14px;font-size:13px" data-ex="milgram">Try: Milgram</button>
+      <button class="btn btn-g" style="min-height:40px;padding:9px 14px;font-size:13px" data-ex="macbeth">Try: Macbeth</button>
+    </div>
+
+    <div class="field"><label for="selLevel">Level</label><select id="selLevel"><option>GCSE</option><option selected>A-Level</option></select></div>
+    <div class="field"><label for="selBoard">Exam board</label><select id="selBoard"><option>AQA</option><option>Edexcel</option><option>OCR</option><option>WJEC / Eduqas</option></select></div>
+    <div class="field"><label for="selSubject">Subject</label><select id="selSubject"></select></div>
+    <div class="field" id="otherWrap" style="display:none"><label for="otherSubject">Which subject?</label><input class="input" id="otherSubject" placeholder="Type your subject"></div>
+    <div class="field"><label for="selLen">Deck size</label><select id="selLen"><option value="8">8 cards</option><option value="14" selected>14 cards</option><option value="20">20 cards</option></select></div>
+
+    <div style="margin:16px 18px">
+      <button class="btn btn-p btn-b" id="btnForge"><span class="lbl">Forge my deck</span></button>
+      <div style="font-size:12.5px;color:var(--n700);text-align:center;margin-top:9px" id="forgeCost">3 credits</div>
+    </div>
+  </section>
+
+  <!-- ---------- STUDENT · DECK ---------- -->
+  <section class="screen" id="sc-deck">
+    <div class="hdr"><div style="flex:1"><div class="kick" id="deckKick">Your deck</div>
+      <h2 id="deckTitle">Deck</h2><div class="sub" id="deckSub"></div></div></div>
+    <div id="cards"></div>
+    <div class="sample" style="background:var(--n200);color:var(--n800)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      <span><b>AI-generated — check against your spec.</b> Flag anything wrong and it goes to your
+      teacher's review queue. Tap again to undo.</span>
+    </div>
+    <div class="row2">
+      <button class="btn btn-s" id="btnSpeak">Read aloud</button>
+      <button class="btn btn-s" id="btnSave">Save deck</button>
+    </div>
+    <div style="margin:0 18px 16px"><button class="btn btn-p btn-b" id="btnStudyThese">Study these</button></div>
+  </section>
+
+  <!-- ---------- STUDENT · STUDY ---------- -->
+  <section class="screen" id="sc-study">
+    <div class="hdr"><div style="flex:1"><div class="kick">Study</div>
+      <h2>Answer before you flip</h2></div></div>
+    <div class="prog"><i id="studyBar" style="width:0%"></i></div>
+    <div id="studyEmpty" class="blk" style="text-align:center">
+      <div class="prose">No cards due. Forge a deck or open a saved one, then come back.</div>
+      <button class="btn btn-p" style="margin-top:14px" data-go="forge">Make some cards</button>
+    </div>
+    <div id="studyWrap" style="display:none">
+      <div class="flip" id="flip" tabindex="0" role="button" aria-label="Reveal answer">
+        <div>
+          <div id="flipFace" class="q-big"></div>
+          <div class="hint" id="flipHint">Say it out loud, then tap to reveal</div>
+        </div>
+      </div>
+      <div class="rates" id="rates" style="display:none">
+        <button class="rate" data-q="0" style="background:#ffe1d0;color:#8c491a"><b>Again</b><span>10 min</span></button>
+        <button class="rate" data-q="1" style="background:#eee7db;color:#474238"><b>Hard</b><span>1 day</span></button>
+        <button class="rate" data-q="2" style="background:#e1eecc;color:#3d472b"><b>Good</b><span>4 days</span></button>
+        <button class="rate" data-q="3" style="background:#8fa073;color:#fff"><b>Easy</b><span>11 days</span></button>
+      </div>
+      <div style="text-align:center;font-size:13px;color:var(--n700);margin:12px 18px" id="studyCount"></div>
+      <div class="row2"><button class="btn btn-g" id="btnToQuiz">Quiz me instead · 3 credits</button></div>
+    </div>
+  </section>
+
+  <!-- ---------- STUDENT · QUIZ ---------- -->
+  <section class="screen" id="sc-quiz">
+    <div class="hdr"><div style="flex:1"><div class="kick" id="quizKick">Quiz</div>
+      <h2 id="quizHead">Six questions</h2></div></div>
+    <div class="prog"><i id="quizBar" style="width:0%"></i></div>
+    <div id="quizEmpty" class="blk" style="text-align:center">
+      <div class="prose">Build a quiz from your current deck. Every wrong answer gets explained.</div>
+      <button class="btn btn-p" style="margin-top:14px" id="btnMakeQuiz">Generate quiz · 3 credits</button>
+    </div>
+    <div id="quizWrap" style="display:none">
+      <div class="blk"><div class="lab a" id="quizSpec"></div><h3 id="qText"></h3></div>
+      <div style="margin:0 18px" id="opts"></div>
+      <div class="blk sage" id="explain" style="display:none"><div class="lab s">Why</div><div class="prose" id="explainTxt"></div></div>
+      <div style="margin:12px 18px"><button class="btn btn-p btn-b" id="btnNextQ" style="display:none">Next question</button></div>
+    </div>
+  </section>
+
+  <!-- ---------- STUDENT · CLASS ---------- -->
+  <section class="screen" id="sc-class">
+    <div class="hdr"><div style="flex:1"><div class="kick">Biology 11B · Ms Okafor</div>
+      <h2>Your class</h2></div></div>
+    <div class="sample"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      <span><b>Sample class data.</b> There is no school backend in this build, so the assignments
+      and percentages below are illustrative. Your decks, streak and credits are real.</span></div>
+
+    <div class="blk accent"><div class="lab a">Due tomorrow 9am</div>
+      <div style="font-family:var(--head);font-size:18px">Osmosis: 6-mark question</div>
+      <div class="prose" style="margin-top:4px">Draft saved · not submitted</div>
+      <button class="btn btn-p" style="margin-top:12px" data-go="feedback">Open it</button></div>
+
+    <div class="blk"><div class="lab">Due Monday</div>
+      <div style="font-family:var(--head);font-size:18px">Required practical: osmosis in potato</div>
+      <div class="prose" style="margin-top:4px">12-card deck, set for the whole class</div></div>
+
+    <div class="blk"><div class="lab">Where you sit on the topic</div>
+      <div id="studentTopics"></div>
+      <div class="prose" style="margin-top:10px;font-size:13px;color:var(--n700)">Only you and Ms Okafor
+      see this. It is built from what you recalled, not from how long you sat there.</div></div>
+  </section>
+
+  <!-- ---------- STUDENT · FEEDBACK ---------- -->
+  <section class="screen" id="sc-feedback">
+    <div class="hdr"><div style="flex:1"><div class="kick">Set by Ms Okafor · due Friday</div>
+      <h2>Answer feedback</h2></div></div>
+    <div class="blk"><div class="lab">The question</div>
+      <input class="input" id="fbQ" placeholder="Paste the exam question" value="Explain why a plant cell placed in a strong sugar solution becomes flaccid. (6)"></div>
+    <div class="field"><label for="answer">Your answer</label>
+      <textarea class="ta" id="answer" placeholder="Write your own answer here."></textarea></div>
+    <div class="blk sage"><div class="lab s">Mark it like an examiner</div>
+      <div class="prose">You get a band, the marks you earned and the one thing to add. You never
+      get a model answer to copy — and your teacher sees the same feedback you do.</div></div>
+    <div style="margin:12px 18px"><button class="btn btn-p btn-b" id="btnFeedback"><span class="lbl">Mark my answer</span></button>
+      <div style="font-size:12.5px;color:var(--n700);text-align:center;margin-top:9px">10 credits</div></div>
+    <div id="fbOut"></div>
+  </section>
+
+  <!-- ---------- STUDENT · YOU ---------- -->
+  <section class="screen" id="sc-you">
+    <div class="hdr"><div style="flex:1"><div class="kick" id="youKick">Your account</div>
+      <h2>Your progress</h2></div><span class="ava sage" id="youAva">?</span></div>
+
+    <div class="stats">
+      <div class="stat"><div class="n a" id="yStreak">0</div><div class="l">Day streak</div></div>
+      <div class="stat"><div class="n" id="yBest">0</div><div class="l">Best run</div></div>
+      <div class="stat"><div class="n s" id="yCards">0</div><div class="l">Cards recalled</div></div>
+    </div>
+
+    <div class="blk"><div class="lab a">Next milestone</div>
+      <div id="milestone"></div></div>
+
+    <div class="blk"><div class="lab">Settings</div>
+      <div class="lst">
+        <button class="tog" id="togEasy"><span class="tl"><b>Accessible reading</b>
+          <span>Looser spacing and larger body text</span></span><span class="sw" id="swEasy"><i></i></span></button>
+        <button class="tog" id="togQuiet"><span class="tl"><b>Quiet hours</b>
+          <span>Nothing after 9pm. Always on for under-18s.</span></span><span class="sw on" id="swQuiet"><i></i></span></button>
+      </div></div>
+
+    <div class="blk"><div class="lab">AI allowance</div>
+      <div class="prose" id="allowance"></div>
+      <button class="btn btn-g btn-b" style="margin-top:12px" id="btnPlans">See plans</button></div>
+
+    <div class="blk"><div class="lab">The small print</div>
+      <div class="lst">
+        <button class="tog" data-info="how"><span class="tl"><b>How to use it</b><span>Six steps, and what it will not do</span></span></button>
+        <button class="tog" data-info="integrity"><span class="tl"><b>Academic integrity</b><span>Why it refuses to write your essay</span></span></button>
+        <button class="tog" data-info="privacy"><span class="tl"><b>Privacy</b><span>What is stored, and your data rights</span></span></button>
+        <button class="tog" data-info="schools"><span class="tl"><b>For schools</b><span>Licensing, DPIA and the DfE standards</span></span></button>
+        <button class="tog" id="keyRow"><span class="tl"><b>AI connection</b><span>—</span></span></button>
+      </div></div>
+
+    <div style="margin:12px 18px"><button class="btn btn-g btn-b" id="btnSignOut">Sign out</button></div>
+
+    <div class="foot">
+      <div class="fr"><span class="mark" style="width:30px;height:30px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5 10.2 10.8 5.5 9l4.7-1.3z"/></svg></span>
+        <span class="fn">StudyForge AI</span><span class="fc2">© 2026</span></div>
+      <div class="note"><b>Pre-launch build.</b> Replace “StudyForge AI” with your registered
+      company name, number and address before launch.</div>
+    </div>
+  </section>
+
+  <!-- ---------- TEACHER · CLASS ---------- -->
+  <section class="screen" id="sc-tclass">
+    <div class="hdr"><div style="flex:1"><div class="kick">Teacher · Biology 11B · 29 students</div>
+      <h2>Where the class is</h2></div><span class="ava sage">CO</span></div>
+    <div class="sample"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      <span><b>Sample class data.</b> Teacher mode has no school backend in this build. The review
+      queue below is live — it fills with cards you actually flag as a student.</span></div>
+
+    <div class="blk accent"><div class="lab a">Worth five minutes of your lesson</div>
+      <div class="prose" style="color:var(--a900)">Osmosis is the class gap: 41% recall, and 12 students
+      still say water moves “to where there is more sugar”.</div>
+      <button class="btn btn-p" style="margin-top:12px" data-go="tassign">Set a reteach task</button></div>
+
+    <div class="blk"><div class="lab">Recall by topic</div><div id="classTopics"></div></div>
+    <div class="blk"><div class="lab">Worth a word</div><div id="pupils"></div></div>
+  </section>
+
+  <!-- ---------- TEACHER · SET WORK ---------- -->
+  <section class="screen" id="sc-tassign">
+    <div class="hdr"><div style="flex:1"><div class="kick">Teacher</div><h2>Set some work</h2></div></div>
+    <div class="blk">
+      <div class="lst">
+        <div class="tog"><span class="tl"><b>Class</b></span><span style="font-weight:700;font-size:14px">Biology 11B</span></div>
+        <div class="tog"><span class="tl"><b>Specification point</b></span><span style="font-weight:700;font-size:14px">AQA B3.2 Osmosis</span></div>
+        <div class="tog"><span class="tl"><b>Due</b></span><span style="font-weight:700;font-size:14px">Friday 9am</span></div>
+      </div>
+    </div>
+    <div class="blk"><div class="lab">What they get</div><div id="assignKinds"></div></div>
+    <div class="blk"><div class="lab">Exam-week controls</div>
+      <div class="lst">
+        <button class="tog" id="togMarking"><span class="tl"><b>AI marking on for this task</b>
+          <span>Turn off during controlled assessment</span></span><span class="sw on" id="swMarking"><i></i></span></button>
+      </div></div>
+    <div style="margin:12px 18px"><button class="btn btn-p btn-b" id="btnSetWork">Set work for 29 students</button></div>
+  </section>
+
+  <!-- ---------- TEACHER · REVIEW ---------- -->
+  <section class="screen" id="sc-treview">
+    <div class="hdr"><div style="flex:1"><div class="kick" id="reviewKick">Teacher · review queue</div>
+      <h2>Cards students flagged</h2>
+      <div class="sub">Anything you reject is pulled from every student's deck, and the forge
+      learns not to write it again.</div></div></div>
+    <div id="reviewList"></div>
+  </section>
+
+  <!-- ---------- HOUSEHOLD · WEEK ---------- -->
+  <section class="screen" id="sc-phome">
+    <div class="hdr"><div style="flex:1"><div class="kick" id="weekKick">Household · this week</div>
+      <h2 id="weekWho">Their week</h2></div></div>
+    <div class="sample"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+      <span><b>Built from real study on this device</b>, plus sample topic data where there is no
+      school backend. You see effort and topics — never the answers.</span></div>
+
+    <div class="blk lg">
+      <div style="font-family:var(--head);font-size:32px" id="weekTime">0m</div>
+      <div class="prose" id="weekSummary">No sessions logged yet this week.</div>
+      <div class="week" id="weekBars"></div>
+    </div>
+
+    <div class="blk sage"><div class="lab s">Going well</div>
+      <div class="prose" id="wellTxt">Nothing to report yet — once there are a few sessions this fills in.</div></div>
+    <div class="blk accent"><div class="lab a">Worth asking about</div>
+      <div class="prose" id="askTxt" style="color:var(--a900)">A good question at the table:
+      “can you explain today's topic to me without looking?”</div></div>
+    <div class="blk"><div class="lab">Children</div>
+      <div class="lst"><div class="tog"><span class="tl"><b id="childName">—</b>
+        <span>Weekly summary only. No answers, no message content.</span></span></div></div></div>
+  </section>
+
+</div>
+
+<!-- tab bar sits outside the scroller so it stays pinned to the bottom -->
+<div class="tabbar" id="tabbar" style="display:none"><div class="in" id="tabs"></div></div>
+
+<button class="mascot" id="mascot" aria-label="Ember says something" aria-expanded="false" style="display:none">
+  <span class="mi"><svg viewBox="0 0 44 44" width="30" height="30" fill="none">
+    <path d="M22 4 14 20h6.6l-1.4 12L30 16h-6.6z" fill="#fff" opacity=".97"/>
+    <circle cx="18.6" cy="16" r="1.9" fill="#c67139"/><circle cx="25.2" cy="16" r="1.9" fill="#c67139"/>
+    <path d="M18.8 21c1.2 1.3 4 1.3 5.2 0" stroke="#c67139" stroke-width="1.8" stroke-linecap="round"/>
+  </svg></span>
+</button>
+<div class="bubble" id="bubble" role="status">
+  <div class="ws">Ember says</div>
+  <q>Learn like you&rsquo;ll <span class="hi">live forever,</span> live like you&rsquo;ll <span class="hi">die tomorrow.</span></q>
+  <button class="dm" id="bubbleClose">Thanks, Ember</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+</div></div>
+
+<div class="veil" id="veil"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<script>
+/* ============================================================
+   StudyForge — Organic mobile build
+   Design: "StudyForge Mobile v2" (Claude Design), rebuilt as live code.
+   Engine carried over from the previous web build.
+   ============================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const FREE_CREDITS = 20;
+const COST = { deck: 3, quiz: 3, feedback: 10 };
+const DAY = 86400000;
+
+const MILESTONES = [
+  { d: 3,  credits: 15,  t: 'Three days running', s: 'The hardest part is starting. You started.' },
+  { d: 7,  credits: 50,  t: 'A full week',        s: 'A week of retrieval beats a weekend of re-reading.' },
+  { d: 14, credits: 120, t: 'Two weeks running',  s: 'Earns a rest day you can bank.' },
+  { d: 30, credits: 300, t: 'A month',            s: 'Thirty days. You know it now.' }
+];
+
+const S = {
+  credits: FREE_CREDITS, plan: 'Free', role: 'student', screen: 'today',
+  deck: null, decks: [], queue: [], current: null, revealed: false, studied: 0,
+  quiz: null, qIndex: 0, qScore: 0, speaking: false, easy: false, quiet: true, marking: true,
+  streak: { count:0, best:0, last:null, freezes:0, totalCards:0, claimed:[], week:[], days:{} },
+  review: []
+};
+
+let USER = null;
+const K = {
+  acct:   e  => 'acct:' + slug(e),
+  deck:   id => 'deck:' + USER.key + ':' + id,
+  decks:  () => 'deck:' + USER.key + ':',
+  cred:   () => 'sf:credits:' + USER.key,
+  streak: () => 'sf:streak:' + USER.key,
+  prefs:  () => 'sf:prefs:' + USER.key,
+  review: () => 'sf:review:' + USER.key
+};
+function slug(e){ return String(e).trim().toLowerCase().replace(/[^a-z0-9._+-]/g,'_'); }
+
+/* ------------------------------------------------------------
+   STORAGE SHIM
+   Inside a Claude artifact, window.storage exists. Hosted as a
+   plain index.html it does not, so fall back to localStorage.
+   ------------------------------------------------------------ */
+window.__sfArtifact = !!window.storage;   // true inside a Claude artifact, where the key is handled for us
+if (!window.storage){
+  window.storage = {
+    async get(k){ const v = localStorage.getItem('sf::'+k); if (v === null) throw new Error('not found'); return {key:k, value:v}; },
+    async set(k,v){ localStorage.setItem('sf::'+k, v); return {key:k, value:v}; },
+    async delete(k){ localStorage.removeItem('sf::'+k); return {key:k, deleted:true}; },
+    async list(p){ const out=[]; for (let i=0;i<localStorage.length;i++){ const k=localStorage.key(i);
+      if (k && k.startsWith('sf::')){ const bare=k.slice(4); if (!p || bare.startsWith(p)) out.push(bare); } }
+      return {keys:out}; }
+  };
+}
+
+/* ---------- storage ---------- */
+async function sGet(k){ try{ const r=await window.storage.get(k); return r?JSON.parse(r.value):null; }catch{ return null; } }
+async function sSet(k,v){ try{ await window.storage.set(k,JSON.stringify(v)); return true; }catch{ return false; } }
+async function sDel(k){ try{ await window.storage.delete(k); }catch{} }
+async function sList(p){ try{ const r=await window.storage.list(p); return r?r.keys:[]; }catch{ return []; } }
+
+/* ---------- ui ---------- */
+let toastT;
+function toast(m,k){ const t=$('#toast'); t.textContent=m; t.className='toast on'+(k?' '+k:'');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'), k==='win'?3200:2200); }
+function sheet(html){ $('#sheet').innerHTML=html; $('#veil').classList.add('on');
+  const f=$('#sheet').querySelector('button'); if(f) f.focus(); }
+function closeSheet(){ $('#veil').classList.remove('on'); }
+$('#veil').addEventListener('click', e => { if(e.target.id==='veil') closeSheet(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeSheet(); showBubble(false); } });
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+function initials(n){ const p=String(n).trim().split(/\s+/).filter(Boolean);
+  return ((p[0]||'?')[0]+(p[1]?p[1][0]:'')).toUpperCase(); }
+
+/* ============================================================
+   NAVIGATION — 5 thumb-reachable tabs, 3 roles
+   ============================================================ */
+const ICON = {
+  today:'M4 11l8-7 8 7v9H4z',
+  forge:'M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5 10.2 10.8 5.5 9l4.7-1.3z',
+  study:'M4 6h7v13H4zM13 6h7v13h-7z',
+  klass:'M3 8l9-4 9 4-9 4zM7 11v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4',
+  you:'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 21c.7-3.5 3.6-5.5 7-5.5s6.3 2 7 5.5',
+  assign:'M5 5h14v14H5zM9 11h6M9 15h4',
+  review:'M5 4v16l6-4 6 4V4z'
+};
+const TABS = {
+  student: [['today','Today',ICON.today,['today']],
+            ['forge','Forge',ICON.forge,['forge','deck']],
+            ['study','Study',ICON.study,['study','quiz']],
+            ['class','Class',ICON.klass,['class','feedback']],
+            ['you','You',ICON.you,['you']]],
+  teacher: [['tclass','Class',ICON.klass,['tclass']],
+            ['tassign','Set work',ICON.assign,['tassign']],
+            ['treview','Review',ICON.review,['treview']],
+            ['you','You',ICON.you,['you']]],
+  parent:  [['phome','Week',ICON.today,['phome']],
+            ['you','Settings',ICON.you,['you']]]
+};
+const HOME = { student:'today', teacher:'tclass', parent:'phome' };
+
+function go(screen){
+  S.screen = screen;
+  $$('.screen').forEach(p => p.classList.toggle('on', p.id === 'sc-'+screen));
+  paintTabs();
+  $('#app').scrollTop = 0;
+  if (screen === 'today')    paintToday();
+  if (screen === 'you')      paintYou();
+  if (screen === 'treview')  paintReview();
+  if (screen === 'phome')    paintWeek();
+  if (screen === 'tclass')   paintTeacherClass();
+  if (screen === 'class')    paintStudentClass();
+}
+function paintTabs(){
+  $('#tabs').innerHTML = TABS[S.role].map(([id,label,d,owns]) => {
+    const on = owns.includes(S.screen);
+    return `<button class="tab ${on?'on':''}" data-tab="${id}">
+      <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor"
+        stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>
+      <span>${label}</span></button>`;
+  }).join('');
+  $$('#tabs .tab').forEach(b => b.addEventListener('click', () => go(b.dataset.tab)));
+}
+function setRole(r){
+  S.role = r;
+  $$('#roles button').forEach(b => b.classList.toggle('on', b.dataset.role === r));
+  go(HOME[r]);
+}
+$$('#roles button').forEach(b => b.addEventListener('click', () => setRole(b.dataset.role)));
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) go(g.dataset.go);
+});
+
+/* ---------- credits ---------- */
+function cap(){ return S.plan==='Free'?FREE_CREDITS:(S.plan==='Exam Pass'?2000:600); }
+async function saveCredits(){ await sSet(K.cred(), {credits:S.credits, plan:S.plan, month:new Date().getMonth()}); }
+async function spend(n, what){
+  if (S.credits < n){ planSheet(what); return false; }
+  S.credits -= n; await saveCredits(); paintAllowance(); return true;
+}
+async function award(n, why){ S.credits += n; await saveCredits(); paintAllowance(); toast(`${why} — +${n} credits`,'win'); }
+function paintAllowance(){
+  const el = $('#allowance'); if(!el) return;
+  el.innerHTML = S.plan === 'School'
+    ? 'Covered by your school. No limit to worry about.'
+    : `<b>${S.credits}</b> of ${cap()} credits left this month on the ${esc(S.plan)} plan. Studying, flipping and re-reading cards are always free — only forging, quizzes and marking cost anything.`;
+  const fc = $('#forgeCost'); if (fc) fc.textContent = `3 credits · ${S.credits} left`;
+}
+
+/* ---------- streak ---------- */
+function ymd(d){ const x=d||new Date(); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
+function dayDiff(a,b){ const p=a.split('-').map(Number), q=b.split('-').map(Number);
+  return Math.round((Date.UTC(q[0],q[1]-1,q[2])-Date.UTC(p[0],p[1]-1,p[2]))/DAY); }
+
+async function touchStreak(){
+  const st = S.streak, today = ymd();
+  st.days[today] = (st.days[today] || 0) + 1;          // minutes-ish proxy for the household view
+  if (st.last === today){ await sSet(K.streak(), st); return; }
+  if (!st.last){ st.count=1; st.week=['h']; }
+  else {
+    const gap = dayDiff(st.last, today);
+    if (gap === 1){ st.count++; st.week.push('h'); }
+    else if (gap === 2 && st.freezes > 0){ st.freezes--; st.count += 2; st.week.push('f','h');
+      toast('A rest day covered yesterday — streak intact'); }
+    else { st.count = 1; st.week = ['h']; }
+  }
+  st.last = today;
+  if (st.count > st.best) st.best = st.count;
+  if (st.count % 7 === 0 && st.freezes < 3) st.freezes++;
+  for (const m of MILESTONES) if (st.count >= m.d && !st.claimed.includes(m.d)){ st.claimed.push(m.d); await award(m.credits, m.t); }
+  await sSet(K.streak(), st);
+}
+
+/* ============================================================
+   INTEGRITY GUARD
+   ============================================================ */
+const BLOCKED = [
+  /\b(write|draft|produce|compose|generate|do)\b[^.?!\n]{0,50}\bfor me\b/i,
+  /\b(write|do|finish|complete|generate|make)\s+(my|our)\s+(essay|homework|coursework|assignment|answer|paper|report)\b/i,
+  /\bso\s+(i|we)\s+can\s+(hand|submit|copy)/i,
+  /\b(i|we)\s+can\s+(hand\s+in|submit)\b/i,
+  /^\s*(write|draft|compose|produce)\s+(me|us)\s+(a|an|the)?\s*(essay|paragraph|answer|report|speech|conclusion)\b/i
+];
+function violates(t){ return BLOCKED.some(r => r.test(t)); }
+function guardSheet(){
+  sheet(`<h3>It won't write that</h3>
+    <p class="sub">That looks like work you could hand in, and this is the one thing StudyForge is built not to do.</p>
+    <p class="prose">What it will do instead: turn the material into questions you have to answer
+    yourself, then tell you where your answer falls short and what to change.</p>
+    <div class="acts"><button class="btn btn-p btn-b" onclick="closeSheet()">Understood</button></div>`);
+}
+
+/* ---------- model ---------- */
+function apiKey(){ try{ return localStorage.getItem('sf::apikey') || ''; }catch{ return ''; } }
+class NoKey extends Error {}
+
+async function ask(prompt, system){
+  const key = apiKey();
+  if (!window.__sfArtifact && !key) throw new NoKey();
+  const headers = {"Content-Type":"application/json"};
+  if (key){                                   // hosted standalone
+    headers["x-api-key"] = key;
+    headers["anthropic-version"] = "2023-06-01";
+    headers["anthropic-dangerous-direct-browser-access"] = "true";
+  }
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST", headers,
+    body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system, messages:[{role:"user",content:prompt}] })
+  });
+  if (res.status === 401 || res.status === 403){ if (!key) throw new NoKey(); throw new Error("api "+res.status); }
+  if (!res.ok) throw new Error("api "+res.status);
+  const d = await res.json();
+  return d.content.filter(c=>c.type==="text").map(c=>c.text).join("\n");
+}
+
+function keySheet(){
+  sheet(`<h3>Connect the AI</h3>
+    <p class="sub">Card generation, quizzes and marking need an Anthropic API key when the app is
+    hosted on your own domain.</p>
+    <div class="field" style="margin:0 0 12px"><label for="kIn">Anthropic API key</label>
+      <input class="input" id="kIn" type="password" placeholder="sk-ant-..." value="${esc(apiKey())}"></div>
+    <p class="prose" style="font-size:13px"><b>Never hard-code a key into this file.</b> Anything in
+    the page source is public. This stores it in your own browser only, which is fine for testing.
+    Before real users touch it, move the call behind a small server-side proxy so the key never
+    reaches the browser.</p>
+    <div class="acts">
+      <button class="btn btn-p btn-b" id="kSave">Save key</button>
+      <button class="btn btn-g btn-b" id="kClear">Remove key</button>
+      <button class="btn btn-g btn-b" onclick="closeSheet()">Cancel</button>
+    </div>`);
+  $('#kSave').onclick = () => { try{ localStorage.setItem('sf::apikey', $('#kIn').value.trim()); }catch{}
+    closeSheet(); paintKeyRow(); toast('Key saved to this browser'); };
+  $('#kClear').onclick = () => { try{ localStorage.removeItem('sf::apikey'); }catch{}
+    closeSheet(); paintKeyRow(); toast('Key removed'); };
+}
+function paintKeyRow(){
+  const el = $('#keyRow'); if (!el) return;
+  const inArtifact = !!window.__sfArtifact;
+  el.querySelector('span span').textContent = inArtifact
+    ? 'Handled for you in this preview'
+    : (apiKey() ? 'Key saved in this browser' : 'Not connected — AI features will not run');
+}
+function parseJSON(raw){
+  let t = raw.replace(/```json|```/g,'').trim();
+  const a=t.indexOf('{'), b=t.indexOf('[');
+  const st = a<0?b:(b<0?a:Math.min(a,b));
+  if (st>0) t=t.slice(st);
+  return JSON.parse(t.slice(0, Math.max(t.lastIndexOf('}'), t.lastIndexOf(']'))+1));
+}
+const SYSTEM = `You are the generation engine inside StudyForge, a UK revision tool for GCSE and A-Level students.
+
+Hard rules:
+- Never produce work a student could submit: no essays, no essay paragraphs, no coursework, no completed exam answers.
+- Everything must require the student to recall or think.
+- Ground content in the material provided. Do not invent statistics, dates, quotations or study results you are not confident about.
+- Where unsure of a specification code, give the topic name instead. Never invent a spec code.
+- Respond with valid JSON only. No preamble, no markdown fences.`;
+
+const SUBJECTS = {
+  'GCSE': {
+    'Core': ['English Language','English Literature','Mathematics','Combined Science (Trilogy)',
+             'Combined Science (Synergy)','Biology','Chemistry','Physics'],
+    'Humanities': ['History','Geography','Religious Studies','Citizenship Studies',
+                   'Ancient History','Classical Civilisation'],
+    'Social sciences & business': ['Business','Economics','Psychology','Sociology','Statistics'],
+    'Computing & technology': ['Computer Science','Design and Technology','Engineering','Electronics',
+                               'Food Preparation and Nutrition'],
+    'Arts & media': ['Art and Design (Fine Art)','Art and Design (Photography)',
+                     'Art and Design (Textile Design)','Art and Design (Graphic Communication)',
+                     'Art and Design (Three-dimensional Design)','Dance','Drama','Music',
+                     'Media Studies','Film Studies'],
+    'Modern languages': ['French','Spanish','German','Italian','Mandarin Chinese','Russian','Arabic',
+                         'Japanese','Polish','Portuguese','Modern Greek','Modern Hebrew','Urdu',
+                         'Bengali','Panjabi','Gujarati','Persian','Turkish'],
+    'Classical languages': ['Latin','Ancient Greek'],
+    'Sport & wellbeing': ['Physical Education'],
+    'Less commonly offered': ['Astronomy','Geology','Natural History',
+                              'Further Maths (Level 2 Certificate)']
+  },
+  'A-Level': {
+    'Sciences & maths': ['Biology','Chemistry','Physics','Mathematics','Further Mathematics',
+                         'Psychology','Environmental Science','Geology','Computer Science','Electronics'],
+    'English': ['English Literature','English Language','English Language and Literature'],
+    'Humanities': ['History','Geography','Religious Studies','Philosophy','Politics','Sociology',
+                   'Ancient History','Classical Civilisation','History of Art'],
+    'Business & law': ['Economics','Business','Law','Accounting'],
+    'Arts & media': ['Art and Design (Fine Art)','Art and Design (Photography)',
+                     'Art and Design (Textile Design)','Art and Design (Graphic Communication)',
+                     'Art and Design (Three-dimensional Design)','Music','Music Technology','Dance',
+                     'Drama and Theatre','Film Studies','Media Studies'],
+    'Modern languages': ['French','Spanish','German','Italian','Mandarin Chinese','Russian','Arabic',
+                         'Japanese','Polish','Portuguese','Modern Greek','Modern Hebrew','Urdu',
+                         'Bengali','Panjabi','Gujarati','Persian','Turkish'],
+    'Classical languages': ['Latin','Classical Greek','Biblical Hebrew'],
+    'Design & sport': ['Design and Technology (Product Design)',
+                       'Design and Technology (Fashion and Textiles)','Physical Education']
+  }
+};
+const OTHER = 'Other — type it in';
+
+function buildSubjects(){
+  const level = $('#selLevel').value;
+  const groups = SUBJECTS[level];
+  const keep = $('#selSubject').value;
+  const flat = Object.values(groups).flat();
+  $('#selSubject').innerHTML =
+    Object.entries(groups).map(([g, list]) =>
+      `<optgroup label="${g}">` + list.map(s => `<option>${esc(s)}</option>`).join('') + `</optgroup>`
+    ).join('') + `<optgroup label="Not listed"><option>${OTHER}</option></optgroup>`;
+  $('#selSubject').value = flat.includes(keep) ? keep
+    : (keep === OTHER ? OTHER : (level === 'GCSE' ? 'Biology' : 'Biology'));
+  syncOther();
+}
+function syncOther(){
+  const on = $('#selSubject').value === OTHER;
+  $("#otherWrap").style.display = on ? "block" : "none";
+  if (on) $('#otherSubject').focus();
+}
+/* what the model should actually be told */
+function subjectValue(){
+  const v = $('#selSubject').value;
+  if (v !== OTHER) return v;
+  return $('#otherSubject').value.trim() || 'General revision';
+}
+
+$('#selLevel').addEventListener('change', buildSubjects);
+$('#selSubject').addEventListener('change', syncOther);
+
+
+/* ---------- examples ---------- */
+const EXAMPLES = {
+  osmosis: `Osmosis — the diffusion of water across a partially permeable membrane, from a dilute solution (high water potential) to a more concentrated one (low water potential). Water moves down a water potential gradient. Partially permeable: water passes, dissolved solutes largely do not. Plant cells in pure water: water enters, vacuole swells, cell becomes turgid, pressure against the cell wall. In strong sugar solution: water leaves, vacuole shrinks, cell becomes flaccid, then plasmolysed as the membrane pulls away from the wall. Animal cells have no wall, so they burst (lysis) in pure water and shrivel (crenation) in concentrated solution. Required practical: potato cylinders in sucrose solutions, measure percentage change in mass.`,
+  milgram: `Milgram 1963 obedience. 40 male participants, told the study was about memory and learning. Confederate 'learner', participant always 'teacher'. Shock generator 15V to 450V. Prods: "please continue", "the experiment requires that you continue". 65% went to 450V; all continued to at least 300V. Challenged the dispositional 'Germans are different' hypothesis — a situational explanation. Evaluation: Orne and Holland argued low internal validity, participants guessed it was fake; Sheridan and King's puppy study supports genuine obedience; ethical issues — deception, right to withdraw, psychological harm; Milgram debriefed and 84% said they were glad to have taken part.`,
+  macbeth: `Macbeth, guilt and ambition. "Vaulting ambition which o'erleaps itself" — Macbeth names his own flaw in Act 1 Scene 7. Lady Macbeth's "unsex me here" rejects femininity to gain the ruthlessness she thinks the murder requires. Blood motif: "will all great Neptune's ocean wash this blood clean from my hand" against Lady Macbeth's "a little water clears us of this deed" — inverted by Act 5's "out damned spot" as guilt transfers. Jacobean context: divine right of kings, regicide as cosmic disorder, James I and the Gunpowder Plot of 1605. Structure: Macbeth's soliloquies thin out as he becomes more tyrannical.`
+};
+$$('[data-ex]').forEach(c => c.addEventListener('click', () => {
+  $('#notes').value = EXAMPLES[c.dataset.ex];
+  if (c.dataset.ex === 'osmosis'){ $('#selLevel').value='GCSE'; buildSubjects(); $('#selSubject').value='Biology'; }
+  if (c.dataset.ex === 'milgram'){ $('#selLevel').value='A-Level'; buildSubjects(); $('#selSubject').value='Psychology'; }
+  if (c.dataset.ex === 'macbeth'){ $('#selLevel').value='A-Level'; buildSubjects(); $('#selSubject').value='English Literature'; }
+  syncOther();
+  toast('Example loaded — now forge it');
+}));
+
+/* photo capture: honest about what it does */
+$('#btnCapture').addEventListener('click', () => $('#fileIn').click());
+$('#fileIn').addEventListener('change', e => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  sheet(`<h3>Photo capture</h3>
+    <p class="sub">You picked <b>${esc(f.name)}</b>.</p>
+    <p class="prose">Reading text off a photograph needs OCR, which isn't wired up in this build —
+    so I won't pretend it worked. For now, type or paste the text and everything else runs for real.</p>
+    <div class="acts"><button class="btn btn-p btn-b" id="okPhoto">Type it instead</button></div>`);
+  $('#okPhoto').onclick = () => { closeSheet(); $('#notes').focus(); };
+  e.target.value = '';
+});
+
+/* ============================================================
+   FORGE
+   ============================================================ */
+$('#btnForge').addEventListener('click', async () => {
+  const notes = $('#notes').value.trim();
+  if (notes.length < 12){ toast('Paste some notes or type a topic first','err'); $('#notes').focus(); return; }
+  if (violates(notes)){ guardSheet(); return; }
+  if (!(await spend(COST.deck,'a new deck'))) return;
+
+  const btn = $('#btnForge');
+  btn.classList.add('busy'); btn.querySelector('.lbl').textContent = 'Forging';
+  const level=$('#selLevel').value, board=$('#selBoard').value, subject=subjectValue(), n=$('#selLen').value;
+
+  try {
+    const deck = parseJSON(await ask(`Build a revision deck of exactly ${n} active-recall flashcards.
+
+Level: ${level}
+Exam board: ${board}
+Subject: ${subject}
+
+Student's material:
+"""
+${notes.slice(0,6000)}
+"""
+
+Return JSON exactly like this:
+{"title":"short deck title, max 6 words","topic":"the specification topic","cards":[{"q":"a question that forces recall","a":"the answer, max 30 words","tag":"specific sub-topic, 2-4 words","diff":"recall|core|stretch"}]}
+
+Rules: answerable from the material or standard ${subject} specification content. No true/false. No card that gives away its own answer. Vary diff.`, SYSTEM));
+
+    deck.id='d'+Date.now(); deck.level=level; deck.board=board; deck.subject=subject; deck.made=Date.now();
+    deck.cards = deck.cards.map((c,i)=>({ ...c, id:deck.id+'_'+i, ease:2.3, interval:0, due:Date.now() }));
+    S.deck = deck;
+    renderDeck(); buildQueue(); go('deck');
+  } catch (err) {
+    if (err instanceof NoKey) keySheet();
+    else toast("Couldn't reach the model — credits returned",'err');
+    S.credits += COST.deck; await saveCredits(); paintAllowance();
+  } finally {
+    btn.classList.remove('busy'); btn.querySelector('.lbl').textContent = 'Forge my deck';
+  }
+});
+
+function renderDeck(){
+  const d = S.deck; if (!d) return;
+  $('#deckKick').textContent = `${d.level} · ${d.board} · ${d.subject}`;
+  $('#deckTitle').textContent = d.title;
+  $('#deckSub').textContent = `${d.cards.length} cards · ${d.topic || ''}`;
+  $('#cards').innerHTML = d.cards.map(c => `
+    <article class="fc ${c.flagged?'flagged':''}" data-card="${c.id}">
+      <div class="meta"><span class="tag ${c.diff==='stretch'?'tag-a':c.diff==='recall'?'tag-n':'tag-s'}">${esc(c.diff||'core')}</span>
+        <span style="font-size:11.5px;color:var(--n700);font-weight:600">${esc(c.tag||d.topic||'')}</span></div>
+      <div class="q">${esc(c.q)}</div>
+      <div class="card-a">${esc(c.a)}</div>
+      <button class="flg" data-flag="${c.id}">${c.flagged?'Sent to your teacher · undo':'Something looks wrong'}</button>
+    </article>`).join('');
+  $$('#cards [data-flag]').forEach(b => b.addEventListener('click', () => toggleFlag(b)));
+}
+
+/* flagging now goes somewhere — the teacher review queue */
+async function toggleFlag(btn){
+  const c = S.deck.cards.find(x => x.id === btn.dataset.flag);
+  if (!c) return;
+  c.flagged = !c.flagged;
+  const el = btn.closest('.fc');
+  el.classList.toggle('flagged', c.flagged);
+  btn.textContent = c.flagged ? 'Sent to your teacher · undo' : 'Something looks wrong';
+  btn.setAttribute('aria-label', (c.flagged?'Undo flag on: ':'Flag card: ') + c.q);
+
+  if (c.flagged){
+    S.review.push({ id:c.id, q:c.q, a:c.a, spec:`${S.deck.board} · ${c.tag||S.deck.topic||S.deck.subject}`,
+                    by: USER.name, at: Date.now(), status:'waiting' });
+  } else {
+    S.review = S.review.filter(r => r.id !== c.id);
+  }
+  await sSet(K.review(), S.review);
+
+  const was = S.current;
+  S.queue = S.queue.filter(x => !x.flagged);
+  if (!c.flagged && c.due <= Date.now() && !S.queue.includes(c)) S.queue.push(c);
+  if (was && was.flagged) nextCard();
+
+  if (S.decks.find(d => d.id === S.deck.id)) await sSet(K.deck(S.deck.id), S.deck);
+  paintTabs();
+  toast(c.flagged ? 'Flagged — waiting in your teacher\'s review queue' : 'Flag removed');
+}
+
+$('#btnSpeak').addEventListener('click', () => {
+  if (!('speechSynthesis' in window)){ toast("Read-aloud isn't available here",'err'); return; }
+  if (S.speaking){ speechSynthesis.cancel(); S.speaking=false; $('#btnSpeak').textContent='Read aloud'; return; }
+  const u = new SpeechSynthesisUtterance(S.deck.cards.filter(c=>!c.flagged).map((c,i)=>`Card ${i+1}. ${c.q} … ${c.a}`).join('. '));
+  u.rate = 0.95; u.onend = () => { S.speaking=false; $('#btnSpeak').textContent='Read aloud'; };
+  speechSynthesis.speak(u); S.speaking=true; $('#btnSpeak').textContent='Stop reading';
+});
+$('#btnSave').addEventListener('click', async () => {
+  if (!S.deck) return;
+  if (S.plan==='Free' && S.decks.length>=3 && !S.decks.find(d=>d.id===S.deck.id)){ planSheet('a fourth saved deck'); return; }
+  if (!(await sSet(K.deck(S.deck.id), S.deck))){ toast("Couldn't save — storage unavailable",'err'); return; }
+  await loadDecks(); toast('Deck saved');
+});
+async function loadDecks(){
+  const out = [];
+  for (const k of await sList(K.decks())){ const d = await sGet(k); if (d) out.push(d); }
+  S.decks = out.sort((a,b)=>b.made-a.made);
+}
+$('#btnStudyThese').addEventListener('click', () => { buildQueue(); go('study'); });
+$('#btnStartToday').addEventListener('click', () => {
+  if (!S.deck && S.decks.length) { S.deck = S.decks[0]; renderDeck(); }
+  if (!S.deck){ go('forge'); return; }
+  buildQueue(); go('study');
+});
+
+/* ============================================================
+   STUDY
+   ============================================================ */
+function dueCount(){
+  const now = Date.now();
+  return S.decks.concat(S.deck && !S.decks.find(d=>d.id===S.deck.id) ? [S.deck] : [])
+    .reduce((n,d) => n + d.cards.filter(c => c.due<=now && !c.flagged).length, 0);
+}
+function buildQueue(){
+  const now = Date.now();
+  S.queue = (S.deck ? S.deck.cards : []).filter(c => c.due<=now && !c.flagged);
+  S.studied = 0; nextCard();
+}
+function nextCard(){
+  const total = S.queue.length + S.studied;
+  if (!S.queue.length){
+    $('#studyWrap').style.display='none'; $('#studyEmpty').style.display='block';
+    $('#studyEmpty').innerHTML = S.studied
+      ? `<div class="prose">You cleared <b>${S.studied}</b> card${S.studied===1?'':'s'}. The hard ones return tomorrow, the rest in a few days.</div>
+         <button class="btn btn-p" style="margin-top:14px" data-go="today">Back to today</button>`
+      : `<div class="prose">No cards due. Forge a deck or open a saved one, then come back.</div>
+         <button class="btn btn-p" style="margin-top:14px" data-go="forge">Make some cards</button>`;
+    return;
+  }
+  $('#studyEmpty').style.display='none'; $('#studyWrap').style.display='block';
+  S.current = S.queue[0]; S.revealed = false;
+  $('#flipFace').textContent = S.current.q; $('#flipFace').className='q-big';
+  $('#flipHint').textContent = 'Say it out loud, then tap to reveal';
+  $('#rates').style.display='none';
+  $('#studyBar').style.width = (S.studied/total*100)+'%';
+  $('#studyCount').textContent = `${S.queue.length} to go`;
+}
+function reveal(){
+  if (S.revealed || !S.current) return;
+  S.revealed = true;
+  $('#flipFace').textContent = S.current.a; $('#flipFace').className='a-big';
+  $('#flipHint').textContent = 'How did that go?';
+  $('#rates').style.display='grid';
+}
+$('#flip').addEventListener('click', reveal);
+$('#flip').addEventListener('keydown', e => { if(e.key===' '||e.key==='Enter'){ e.preventDefault(); reveal(); } });
+$$('#rates .rate').forEach(b => b.addEventListener('click', async () => {
+  const q = +b.dataset.q, c = S.current;
+  if (q===0){ c.interval=0; c.ease=Math.max(1.6,c.ease-0.2); c.due=Date.now()+6e5; S.queue.push(c); }
+  else if (q===1){ c.interval=1; c.ease=Math.max(1.8,c.ease-0.1); c.due=Date.now()+DAY; }
+  else if (q===2){ c.interval=c.interval?Math.round(c.interval*c.ease):4; c.ease+=0.05; c.due=Date.now()+c.interval*DAY; }
+  else { c.interval=c.interval?Math.round(c.interval*c.ease*1.4):11; c.ease+=0.12; c.due=Date.now()+c.interval*DAY; }
+  S.queue.shift(); S.studied++; S.streak.totalCards++;
+  await touchStreak();
+  if (S.decks.find(d=>d.id===S.deck.id)) await sSet(K.deck(S.deck.id), S.deck);
+  nextCard();
+}));
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+$('#btnToQuiz').addEventListener('click', () => go('quiz'));
+$('#btnMakeQuiz').addEventListener('click', makeQuiz);
+async function makeQuiz(){
+  if (!S.deck){ toast('Forge a deck first','err'); go('forge'); return; }
+  if (!(await spend(COST.quiz,'a quiz'))) return;
+  const btn = $('#btnMakeQuiz'); if (btn){ btn.disabled=true; btn.textContent='Writing questions…'; }
+  const material = S.deck.cards.filter(c=>!c.flagged).slice(0,14).map(c=>`${c.q} -> ${c.a}`).join('\n');
+  try {
+    const d = parseJSON(await ask(`Write 6 multiple-choice questions for a ${S.deck.level} ${S.deck.subject} student (${S.deck.board}) on: ${S.deck.title}.
+
+Base them on these cards:
+${material}
+
+Return JSON:
+{"questions":[{"q":"question","opts":["A","B","C","D"],"correct":0,"why":"why the right answer is right and what the common wrong choice mistakes","tag":"sub-topic"}]}
+
+Rules: exactly 4 options. Wrong options must be plausible misconceptions. Vary which index is correct. Options under 16 words.`, SYSTEM));
+    S.quiz = d.questions; S.qIndex=0; S.qScore=0;
+    $('#quizEmpty').style.display='none'; $('#quizWrap').style.display='block';
+    paintQuestion();
+  } catch (err) {
+    if (err instanceof NoKey) keySheet();
+    else toast("Couldn't build the quiz — credits returned",'err');
+    S.credits += COST.quiz; await saveCredits(); paintAllowance();
+  } finally { const b=$('#btnMakeQuiz'); if(b){ b.disabled=false; b.textContent='Generate quiz · 3 credits'; } }
+}
+function paintQuestion(){
+  const q = S.quiz[S.qIndex];
+  $('#quizKick').textContent = `${S.deck.board} · question ${S.qIndex+1} of ${S.quiz.length}`;
+  $('#quizHead').textContent = `${S.qScore} right so far`;
+  $('#quizSpec').textContent = q.tag || S.deck.subject;
+  $('#qText').textContent = q.q;
+  $('#explain').style.display='none'; $('#btnNextQ').style.display='none';
+  $('#quizBar').style.width = (S.qIndex/S.quiz.length*100)+'%';
+  $('#opts').innerHTML = q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('');
+  $$('#opts .opt').forEach(b => b.addEventListener('click', () => answer(+b.dataset.i)));
+}
+function answer(i){
+  const q = S.quiz[S.qIndex];
+  $$('#opts .opt').forEach((b,idx)=>{
+    b.disabled = true;
+    if (idx===q.correct) b.classList.add('right');
+    else if (idx===i) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  if (i===q.correct) S.qScore++;
+  $('#explainTxt').textContent = q.why;
+  $('#explain').style.display='block';
+  $('#quizHead').textContent = `${S.qScore} of ${S.qIndex+1} right`;
+  $('#btnNextQ').style.display='flex';
+  if (S.qIndex === S.quiz.length-1) $('#btnNextQ').textContent = 'See result';
+}
+$('#btnNextQ').addEventListener('click', () => {
+  if (S.qIndex < S.quiz.length-1){ S.qIndex++; paintQuestion(); return; }
+  const pct = Math.round(S.qScore/S.quiz.length*100);
+  $('#quizWrap').style.display='none'; $('#quizEmpty').style.display='block';
+  $('#quizEmpty').innerHTML = `<div style="font-family:var(--head);font-size:26px">${S.qScore} out of ${S.quiz.length}</div>
+    <div class="prose" style="margin-top:8px">${pct>=80?'Strong. Push to a harder deck on the same topic.'
+      :pct>=50?'Middling — re-study the cards you missed first.'
+      :'This topic needs another pass before it is exam-ready.'}</div>
+    <button class="btn btn-p" style="margin-top:14px" id="againQuiz">New quiz · 3 credits</button>`;
+  $('#againQuiz').addEventListener('click', makeQuiz);
+});
+
+/* ============================================================
+   ANSWER FEEDBACK
+   ============================================================ */
+$('#btnFeedback').addEventListener('click', async () => {
+  const ans = $('#answer').value.trim(), q = $('#fbQ').value.trim();
+  if (ans.length < 40){ toast('Write a bit more first — at least a paragraph','err'); $('#answer').focus(); return; }
+  if (violates(ans)){ guardSheet(); return; }
+  if (!(await spend(COST.feedback,'answer feedback'))) return;
+  const btn = $('#btnFeedback');
+  btn.classList.add('busy'); btn.querySelector('.lbl').textContent='Marking';
+  $('#fbOut').innerHTML = '<div class="blk"><div class="prose">Reading your answer…</div></div>';
+  try {
+    const f = parseJSON(await ask(`A ${$('#selLevel').value} ${subjectValue()} student (${$('#selBoard').value}) wrote this answer.
+
+Question: ${q || '(not given — infer it)'}
+
+Their answer:
+"""
+${ans.slice(0,5000)}
+"""
+
+Return JSON:
+{"band":"e.g. Level 2","marks":"e.g. 4 / 6","strengths":["..."],"improve":["..."],"next":"the single most valuable change, one sentence"}
+
+Rules: 2-3 strengths, 2-3 improvements, specific to what they wrote. Never rewrite their answer or supply sentences they could paste in. The band is an estimate, never an official mark.`, SYSTEM));
+    $('#fbOut').innerHTML = `
+      <div class="blk accent"><div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font-family:var(--head);font-size:34px;color:var(--a800)">${esc(f.marks||f.band)}</span>
+        <span class="tag tag-a">${esc(f.band)}</span></div>
+        <div class="prose" style="color:var(--a900);margin-top:6px">An estimate, not an official mark.</div></div>
+      <div class="blk sage"><div class="lab s">Working</div>
+        <div class="prose">${(f.strengths||[]).map(s=>'• '+esc(s)).join('<br>')}</div></div>
+      <div class="blk"><div class="lab a">Costing you marks</div>
+        <div class="prose">${(f.improve||[]).map(s=>'• '+esc(s)).join('<br>')}</div></div>
+      <div class="blk"><div class="lab">Do this next</div><div class="prose">${esc(f.next||'')}</div></div>`;
+  } catch (err) {
+    if (err instanceof NoKey){ keySheet(); $('#fbOut').innerHTML=''; }
+    else $('#fbOut').innerHTML = '<div class="blk"><div class="prose" style="color:var(--a700)">Couldn\'t reach the model. Credits returned — try again shortly.</div></div>';
+    S.credits += COST.feedback; await saveCredits(); paintAllowance();
+  } finally { btn.classList.remove('busy'); btn.querySelector('.lbl').textContent='Mark my answer'; }
+});
+
+/* ============================================================
+   SCREEN PAINTERS
+   ============================================================ */
+function paintToday(){
+  const h = new Date().getHours();
+  $('#todayHi').textContent = (h<12?'Morning':h<18?'Afternoon':'Evening')+', '+USER.name.split(' ')[0];
+  $('#todayKick').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long'})
+    + (USER.guest ? ' · guest, nothing saved' : ' · your revision');
+  $('#todayAva').textContent = initials(USER.name);
+  const due = dueCount();
+  $('#dueNum').textContent = due;
+  $('#dueArc').setAttribute('stroke-dashoffset', 157 - Math.min(1, due/14)*157);
+  $('#dueTitle').textContent = due ? 'Due now' : 'Nothing due';
+  $('#dueMins').textContent = due ? `${due} card${due===1?'':'s'}, about ${Math.max(1,Math.round(due*0.65))} minutes`
+                                  : 'Forge a deck to get started';
+  const topics = [...new Set(S.decks.flatMap(d => d.cards.filter(c=>c.due<=Date.now()&&!c.flagged).map(c=>c.tag)).filter(Boolean))].slice(0,3);
+  $('#dueTopics').textContent = topics.join(' · ');
+  $('#tStreak').textContent = S.streak.count;
+  $('#tDecks').textContent = S.decks.length;
+  $('#tCards').textContent = S.streak.totalCards;
+  $('#assignedList').innerHTML = S.decks.length
+    ? S.decks.slice(0,3).map(d=>`<div style="padding:7px 0;border-bottom:1px solid var(--n300)"><b>${esc(d.title)}</b><br><span style="font-size:13px;color:var(--n700)">${esc(d.level)} · ${esc(d.subject)} · ${d.cards.length} cards</span></div>`).join('')
+    : 'Nothing set yet. In a licensed school this is where your teacher\'s work appears.';
+}
+function paintYou(){
+  $('#youKick').textContent = USER.guest ? 'Guest · nothing is saved' : esc(USER.name);
+  $('#youAva').textContent = initials(USER.name);
+  $('#yStreak').textContent = S.streak.count;
+  $('#yBest').textContent = S.streak.best;
+  $('#yCards').textContent = S.streak.totalCards;
+  const next = MILESTONES.find(m => !S.streak.claimed.includes(m.d));
+  $('#milestone').innerHTML = next
+    ? `<div style="display:flex;gap:14px;align-items:center">
+        <div style="width:52px;height:52px;border-radius:999px;background:var(--a200);color:var(--a700);
+          display:grid;place-items:center;font-family:var(--head);font-size:21px;flex:none">${next.d}</div>
+        <div><b style="font-size:15px">${esc(next.t)}</b>
+        <div class="prose" style="margin:2px 0 0">${Math.max(0,next.d-S.streak.count)} more days. ${esc(next.s)} Earns ${next.credits} credits.</div></div></div>`
+    : '<div class="prose">Every streak reward unlocked. Rest days keep banking.</div>';
+  paintAllowance();
+}
+function paintStudentClass(){
+  $('#studentTopics').innerHTML = SAMPLE.topics.map(t=>bar(t.name, t.you, `you ${t.you} · class ${t.cls}`, t.color)).join('');
+}
+function paintTeacherClass(){
+  $('#classTopics').innerHTML = SAMPLE.classTopics.map(t=>bar(t.name, t.you, t.you, t.color)).join('');
+  $('#pupils').innerHTML = SAMPLE.pupils.map(p=>`<div class="pupil"><span class="ini">${p.ini}</span>
+    <div style="flex:1"><div class="nm">${esc(p.name)}</div><div class="nt">${esc(p.note)}</div></div></div>`).join('');
+  $('#assignKinds').innerHTML = SAMPLE.kinds.map((k,i)=>`<button class="tog" data-kind="${i}">
+    <span class="tl"><b>${esc(k.title)}</b><span>${esc(k.note)}</span></span>
+    <span class="sw ${k.on?'on':''}"><i></i></span></button>`).join('');
+  $$('#assignKinds [data-kind]').forEach(b => b.addEventListener('click', () => {
+    const k = SAMPLE.kinds[+b.dataset.kind]; k.on = !k.on;
+    b.querySelector('.sw').classList.toggle('on', k.on);
+  }));
+}
+function bar(name, pct, label, color){
+  return `<div class="topic"><div class="hd"><b>${esc(name)}</b><span>${esc(label)}</span></div>
+    <div class="bar"><i style="width:${esc(pct)};background:${color}"></i></div></div>`;
+}
+function paintReview(){
+  $('#reviewKick').textContent = `Teacher · ${S.review.filter(r=>r.status==='waiting').length} waiting`;
+  $('#reviewList').innerHTML = S.review.length
+    ? S.review.map((r,i)=>`<div class="blk">
+        <div class="meta" style="display:flex;gap:8px;margin-bottom:9px">
+          <span class="tag ${r.status==='waiting'?'tag-a':r.status==='rejected'?'tag-n':'tag-s'}">${r.status}</span>
+          <span style="font-size:11.5px;color:var(--n700);font-weight:600">${esc(r.spec)}</span></div>
+        <div style="font-family:var(--head);font-size:17px">${esc(r.q)}</div>
+        <div class="prose" style="margin-top:6px">${esc(r.a)}</div>
+        <div class="prose" style="margin-top:10px;font-size:13px;color:var(--n700)">Flagged by ${esc(r.by)}</div>
+        ${r.status==='waiting'?`<div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-p" style="flex:1;min-height:42px;font-size:14px" data-rev="reject:${i}">Reject</button>
+          <button class="btn btn-s" style="flex:1;min-height:42px;font-size:14px" data-rev="keep:${i}">Card is fine</button></div>`:''}
+      </div>`).join('')
+    : `<div class="blk"><div class="prose">Nothing waiting. When a student flags an AI card as wrong,
+        it lands here. Try it: switch to <b>Student</b>, forge a deck, and tap
+        <b>Something looks wrong</b> on a card.</div></div>`;
+  $$('#reviewList [data-rev]').forEach(b => b.addEventListener('click', async () => {
+    const [act,i] = b.dataset.rev.split(':');
+    S.review[+i].status = act==='reject' ? 'rejected' : 'kept';
+    await sSet(K.review(), S.review);
+    paintReview();
+    toast(act==='reject' ? 'Rejected — pulled from every student deck' : 'Kept — the student was told');
+  }));
+}
+function paintWeek(){
+  const days=[], today=new Date();
+  for (let i=6;i>=0;i--){ const d=new Date(today); d.setDate(d.getDate()-i); days.push(ymd(d)); }
+  const counts = days.map(d => S.streak.days[d] || 0);
+  const total = counts.reduce((a,b)=>a+b,0);
+  const mins = Math.round(total*0.65);
+  const max = Math.max(1, ...counts);
+  $('#weekWho').textContent = USER.name.split(' ')[0] + "'s week";
+  $('#weekKick').textContent = 'Household · week to ' + today.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  $('#weekTime').textContent = mins>=60 ? `${Math.floor(mins/60)}h ${mins%60}m` : `${mins}m`;
+  $('#weekSummary').textContent = total
+    ? `${total} cards recalled across ${counts.filter(c=>c>0).length} day${counts.filter(c=>c>0).length===1?'':'s'}. You see effort and topics, never the answers.`
+    : 'No sessions logged yet this week.';
+  $('#weekBars').innerHTML = counts.map((c,i)=>`<div><div class="bar"><i style="height:${Math.round(c/max*100)}%"></i></div>
+    <div class="d">${'MTWTFSS'[new Date(days[i]).getDay()===0?6:new Date(days[i]).getDay()-1]}</div></div>`).join('');
+  $('#childName').textContent = USER.name;
+  $('#wellTxt').textContent = S.streak.count>=3
+    ? `A ${S.streak.count}-day run going. ${S.streak.totalCards} cards recalled in total.`
+    : 'Nothing to report yet — once there are a few sessions this fills in.';
+}
+
+const SAMPLE = {
+  topics:[{name:'Gas exchange',you:'82%',cls:'76%',color:'#8fa073'},
+          {name:'Enzymes',you:'68%',cls:'71%',color:'#8fa073'},
+          {name:'Osmosis',you:'41%',cls:'44%',color:'#c67139'},
+          {name:'Blood vessels',you:'74%',cls:'69%',color:'#8fa073'}],
+  classTopics:[{name:'Gas exchange',you:'76%',color:'#8fa073'},{name:'Enzymes',you:'71%',color:'#8fa073'},
+               {name:'Blood vessels',you:'69%',color:'#8fa073'},{name:'Osmosis',you:'41%',color:'#c67139'},
+               {name:'Required practicals',you:'38%',color:'#c67139'}],
+  pupils:[{ini:'JD',name:'Jamal Deen',note:'No sessions in nine days · osmosis at 12%'},
+          {ini:'PL',name:'Priya Lal',note:'Revising nightly, recall falling · try a shorter deck'},
+          {ini:'AO',name:'Amara Okonkwo',note:'Flagged three AI cards — all three were right'}],
+  kinds:[{title:'12-card deck, spaced over the week',note:'Auto-scheduled to the Friday deadline',on:true},
+         {title:'One 6-mark question, AI-marked',note:'You see the draft and the feedback given',on:true},
+         {title:'Six-question quiz',note:'Off — the deck already covers recall',on:false}]
+};
+
+/* ---------- toggles ---------- */
+async function savePrefs(){ await sSet(K.prefs(), {easy:S.easy, quiet:S.quiet}); }
+$('#togEasy').addEventListener('click', async () => {
+  S.easy = !S.easy; document.body.classList.toggle('easy', S.easy);
+  $('#swEasy').classList.toggle('on', S.easy); await savePrefs();
+  toast(S.easy?'Accessible reading on':'Accessible reading off');
+});
+$('#togQuiet').addEventListener('click', () => {
+  sheet(`<h3>Quiet hours stay on</h3>
+    <p class="sub">No notifications after 9pm, and no streak reminders at any hour.</p>
+    <p class="prose">This is locked on for under-18 accounts. It is one of the design decisions
+    that lets a school deploy the app to a whole year group.</p>
+    <div class="acts"><button class="btn btn-p btn-b" onclick="closeSheet()">Fair enough</button></div>`);
+});
+$('#togMarking').addEventListener('click', () => {
+  S.marking = !S.marking;
+  $('#swMarking').classList.toggle('on', S.marking);
+  toast(S.marking?'AI marking on for this task':'AI marking off — controlled assessment mode');
+});
+$('#btnSetWork').addEventListener('click', () => {
+  sheet(`<h3>Work set</h3>
+    <p class="sub">In a licensed school this would push to 29 students.</p>
+    <p class="prose">There is no school backend in this build, so nothing was sent. The student
+    side of this flow is real — decks, marking and the review queue all work.</p>
+    <div class="acts"><button class="btn btn-p btn-b" onclick="closeSheet()">Got it</button></div>`);
+});
+
+/* ---------- plans & info ---------- */
+function planSheet(what){
+  sheet(`<h3>You've used your free credits</h3>
+    <p class="sub">The free allowance resets next month, and streak rewards top you up sooner.
+    If exams are closer than that, these unblock ${esc(what||'this')} now.</p>
+    <div class="acts">
+      <button class="btn btn-p btn-b" data-buy="Plus">Plus — £9.99 a month</button>
+      <button class="btn btn-sage btn-b" data-buy="Exam Pass">Exam Pass — £24.99 once</button>
+      <button class="btn btn-g btn-b" data-buy="School">My school has a licence</button>
+      <button class="btn btn-g btn-b" onclick="closeSheet()">Not now</button>
+    </div>`);
+}
+$('#btnPlans').addEventListener('click', () => planSheet('more forging'));
+$('#keyRow').addEventListener('click', keySheet);
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-buy]'); if (!b) return;
+  const plan = b.dataset.buy; closeSheet();
+  S.plan = plan;
+  S.credits = plan==='Exam Pass' ? 2000 : plan==='School' ? 9999 : 600;
+  await saveCredits(); paintAllowance();
+  toast(`${plan} unlocked for this demo — checkout isn't wired up`);
+});
+
+const INFO = {
+  how:['How to use it',`<p class="prose"><b>1. Capture.</b> Photograph a page or paste your notes.<br>
+    <b>2. Forge.</b> You get cards tagged to a specification point.<br>
+    <b>3. Answer before you flip.</b> Say it out loud — that is the bit that works.<br>
+    <b>4. Rate honestly.</b> Pressing Good when you guessed only hides the gap.<br>
+    <b>5. Come back tomorrow.</b> Twenty minutes a day beats four hours the night before.<br>
+    <b>6. Write real answers.</b> Get them marked, then redraft.</p>
+    <p class="prose">Studying and re-reading are free and unlimited. Only forging, quizzes and marking cost credits.</p>`],
+  integrity:['Academic integrity',`<p class="prose">StudyForge will not write an essay, a paragraph you
+    could submit, or a finished coursework answer. Ask it to and it stops and says so.</p>
+    <p class="prose">That is deliberate. It is the reason a school can put this in front of a whole
+    year group, and why answer feedback gives you a band and one change to make rather than a model
+    answer to copy.</p>`],
+  privacy:['Privacy',`<p class="prose"><b>Pre-launch build.</b> Everything — your account, decks,
+    streak and credits — is stored in this browser on this device. There is no server.</p>
+    <p class="prose"><b>Your password is never stored</b>, only a salted SHA-256 hash. That is not
+    real authentication, so do not reuse a password from elsewhere.</p>
+    <p class="prose">The only thing that leaves your device is the text you send for card, quiz or
+    marking generation. No name or account identifier goes with it. <b>No ads, no tracking, and
+    nothing sold or shared.</b> The ICO Children's Code is applied by default.</p>`],
+  schools:['For schools',`<p class="prose">A site licence runs <b>£1,200 to £3,000 a year</b> for the
+    whole cohort. Free teacher accounts, no per-pupil metering.</p>
+    <p class="prose">Before any pupil account is created you get a completed DPIA, a signed data
+    processing agreement, and a written self-assessment against the DfE's thirteen generative AI
+    product safety standards — including any not yet met, and by when.</p>
+    <p class="prose"><b>The Access Programme</b> gives free personal accounts to all Pupil Premium
+    students at a licensed school, written into the licence.</p>`]
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-info]'); if (!b) return;
+  const [t,body] = INFO[b.dataset.info];
+  sheet(`<h3>${t}</h3><div style="margin-top:10px">${body}</div>
+    <div class="acts"><button class="btn btn-p btn-b" onclick="closeSheet()">Close</button></div>`);
+});
+
+/* ---------- mascot ---------- */
+let bubbleT;
+function showBubble(on){
+  $('#bubble').classList.toggle('on', on);
+  $('#mascot').setAttribute('aria-expanded', on);
+  clearTimeout(bubbleT);
+  if (on) bubbleT = setTimeout(()=>showBubble(false), 9000);
+}
+$('#mascot').addEventListener('click', e => { e.stopPropagation(); showBubble(!$('#bubble').classList.contains('on')); });
+$('#bubbleClose').addEventListener('click', ()=>showBubble(false));
+$('#bubble').addEventListener('click', e => e.stopPropagation());
+document.addEventListener('click', ()=>showBubble(false));
+
+/* ============================================================
+   ACCOUNTS
+   ============================================================ */
+async function hash(pw, salt){
+  const txt = salt+'::'+pw;
+  try {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+    return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+  } catch {
+    let h=5381; for(let i=0;i<txt.length;i++) h=((h<<5)+h+txt.charCodeAt(i))|0;
+    return 'fb'+(h>>>0).toString(16);
+  }
+}
+function randSalt(){ const a=new Uint8Array(16);
+  (crypto.getRandomValues?crypto.getRandomValues(a):a.forEach((_,i)=>a[i]=Math.random()*256|0));
+  return Array.from(a).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+
+let authMode='signup';
+function setAuthMode(m){
+  authMode=m;
+  $$('#atabs button').forEach(b=>b.classList.toggle('on', b.dataset.mode===m));
+  const su = m==='signup';
+  $('#gName').style.display = su?'':'none';
+  $('#btnAuth').textContent = su?'Create account':'Log in';
+  $('#fPass').setAttribute('autocomplete', su?'new-password':'current-password');
+  authErr('');
+}
+function authErr(m){ const e=$('#aerr'); e.textContent=m; e.classList.toggle('on', !!m); }
+document.addEventListener('click', e => { const b=e.target.closest('[data-mode]'); if(b) setAuthMode(b.dataset.mode); });
+$$('#landing input').forEach(i => i.addEventListener('keydown', e => {
+  if (e.key==='Enter'){ e.preventDefault(); $('#btnAuth').click(); } }));
+
+$('#btnAuth').addEventListener('click', async () => {
+  const name=$('#fName').value.trim(), email=$('#fEmail').value.trim(), pass=$('#fPass').value;
+  const remember=$('#fRemember').checked;
+  if (!validEmail(email)) return authErr("That email address doesn't look right.");
+  if (authMode==='signup'){
+    if (name.length<2) return authErr('Please enter your name.');
+    if (pass.length<8) return authErr('Passwords need at least 8 characters.');
+    if (await sGet(K.acct(email))) return authErr('An account already exists for that email. Log in instead.');
+    const salt=randSalt();
+    const acct={name,email,salt,hash:await hash(pass,salt),made:Date.now()};
+    if (!(await sSet(K.acct(email),acct))) return authErr("Couldn't save your account — storage unavailable.");
+    await enter(acct, remember, true);
+  } else {
+    const acct = await sGet(K.acct(email));
+    if (!acct) return authErr('No account here with that email. Sign up to create one.');
+    if (await hash(pass, acct.salt) !== acct.hash) return authErr("That password doesn't match.");
+    await enter(acct, remember, false);
+  }
+});
+$('#btnGuest').addEventListener('click', async () => {
+  await enter({name:'Guest', email:'guest@local'}, false, false, true);
+});
+
+async function enter(acct, remember, isNew, guest){
+  USER = { name:acct.name, email:acct.email, key:slug(acct.email), guest:!!guest };
+  if (remember) await sSet('sf:session', {email:acct.email}); else await sDel('sf:session');
+  $('#landing').style.display='none';
+  $('#app').style.display='block';
+  $('#tabbar').style.display='block';
+  $('#mascot').style.display='grid';
+  $('#fPass').value='';
+  await loadUser();
+  setRole('student');
+  if (!guest) toast(isNew ? `Welcome, ${USER.name.split(' ')[0]} — 20 free credits to start`
+                          : `Welcome back, ${USER.name.split(' ')[0]}`);
+}
+$('#btnSignOut').addEventListener('click', async () => {
+  await sDel('sf:session');
+  USER=null; S.deck=null; S.decks=[]; S.queue=[]; S.quiz=null; S.review=[];
+  $('#app').style.display='none'; $('#tabbar').style.display='none';
+  $('#mascot').style.display='none'; showBubble(false);
+  $('#landing').style.display='block';
+  setAuthMode('login');
+  toast('Signed out — your decks stay on this device');
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+async function loadUser(){
+  S.credits=FREE_CREDITS; S.plan='Free';
+  S.streak={count:0,best:0,last:null,freezes:0,totalCards:0,claimed:[],week:[],days:{}};
+  const c=await sGet(K.cred()), m=new Date().getMonth();
+  if (c && c.month===m){ S.credits=c.credits; S.plan=c.plan||'Free'; } else await saveCredits();
+  const st=await sGet(K.streak());
+  if (st){ S.streak=Object.assign(S.streak, st); S.streak.days = st.days || {}; }
+  if (S.streak.last){
+    const gap=dayDiff(S.streak.last, ymd());
+    if (gap>2 || (gap===2 && S.streak.freezes===0)){ S.streak.count=0; S.streak.week=[]; }
+  }
+  const pr=await sGet(K.prefs());
+  if (pr){ S.easy=!!pr.easy; document.body.classList.toggle('easy',S.easy); $('#swEasy').classList.toggle('on',S.easy); }
+  S.review = (await sGet(K.review())) || [];
+  await loadDecks();
+  if (S.decks.length){ S.deck = S.decks[0]; renderDeck(); }
+  buildQueue();
+  paintAllowance();
+  paintKeyRow();
+}
+(async function boot(){
+  buildSubjects();
+  setAuthMode('signup');
+  const s = await sGet('sf:session');
+  if (s && s.email){
+    const acct = await sGet(K.acct(s.email));
+    if (acct){ await enter(acct, true, false); return; }
+    await sDel('sf:session');
+  }
+  $('#landing').style.display='block';
+})();
+</script>
+</body>
+</html>
